@@ -1,5 +1,5 @@
 #include "Node.h"
-std::string Node::stringify(const int depth = 0) {
+std::string Node::stringify(const int depth) {
     const std::string indent = std::string(" ", depth * 2);
     std::string result = "";
 
@@ -18,3 +18,10 @@ std::string Node::stringify(const int depth = 0) {
 
     return result;
 };
+
+void Node::for_each(std::function<void(const Node&)> functor) {
+    functor(*this);
+    for (const auto& child : children) {
+        child->for_each(functor);
+    }
+}
