@@ -19,3 +19,21 @@ void Resource::for_each(std::function<void(const Node&)> fun) {
 	}
 	
 }
+
+void Resource::save(const std::string& path) {
+	try {
+		XML_document->save(path);
+	}
+	catch (std::exception& msg) {
+		std::cout << msg.what();
+	}	
+}
+
+void Resource::parse(const std::string& xmlfile) {
+	try {
+		XML_document->parse(xmlfile);
+	}
+	catch (std::exception& msg) {
+		std::cout << msg.what();
+	}
+};

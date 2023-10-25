@@ -14,7 +14,7 @@ class Node {
    
 public:
     std::vector<std::unique_ptr<Node>> children;
-    Node(const std::string& tag, const std::string& value) : tag(tag), value(value) {}
+    Node(const std::string& tag, const std::string& value) noexcept : tag(tag), value(value) {};
 
     void append(std::unique_ptr<Node> child) {
         children.emplace_back(std::move(child));

@@ -53,23 +53,26 @@ void Tree::getNextValue(const std::string& expression, int& index, std::string& 
 }
 
 void Tree::load(const std::string& path) {
-    const std::string xml = read_file(path);
+    const std::string xml = readFile(path);
     parse(xml);
 };
+
 void Tree::save(const std::string& path) {
     std::string xml = stringify();
-    write_file(path, xml);
+    writeFile(path, xml);
 };
+
 void Tree::print() {
     std::string xml = stringify();
     std::cout << xml << std::endl;
 };
+
 void Tree::for_each(std::function<void(const Node&)> Functor) {
     root_node->for_each(Functor);
 };
 
 
-std::string Tree::read_file(const std::string& path) {
+std::string Tree::readFile(const std::string& path) {
     std::ifstream file(path);
     std::string expression = "", cur = "";
 
@@ -85,7 +88,7 @@ std::string Tree::read_file(const std::string& path) {
     throw std::exception("File not found");
 
 };
-void Tree::write_file(const std::string& path, const std::string& content) {
+void Tree::writeFile(const std::string& path, const std::string& content) {
     std::ofstream file(path);
 
     if (!file) {
