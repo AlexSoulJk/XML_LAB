@@ -78,7 +78,6 @@ std::string Tree::read_file(const std::string& path) {
             expression += cur;
         }
         std::cout << "succes loading" << std::endl;
-        std::cout << expression << std::endl;
         return expression;
         //parse(expression);
     }

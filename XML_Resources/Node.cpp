@@ -7,7 +7,7 @@ std::string Node::stringify(const int depth) {
     if (children.size()) {
         result += "\n";
     }
-    std::cout << tag << " " << "\"" << "value=" + value << "\"" << " " << depth << std::endl;
+    //std::cout << tag << " " << "\"" << "value=" + value << "\"" << " " << depth << std::endl;
     for (const auto& child : children) {
         result += child->stringify(depth + 1);
     }
@@ -20,6 +20,8 @@ std::string Node::stringify(const int depth) {
 };
 
 void Node::for_each(std::function<void(const Node&)> functor) {
+
+    if (!this) throw std::exception("Your function has violated the integrity of the tree. Don't write like that anymore)");
     functor(*this);
     for (const auto& child : children) {
         child->for_each(functor);

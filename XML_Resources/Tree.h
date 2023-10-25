@@ -14,6 +14,7 @@ public:
     void save(const std::string& path);
     void print();
     void for_each(std::function<void(const Node&)>);
+    
 
 private:
     std::unique_ptr<Node> root_node;

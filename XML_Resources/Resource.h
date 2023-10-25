@@ -3,11 +3,23 @@
 class Resource
 {
 	std::unique_ptr<Tree> XML_document;
-	Resource(std::string const& fileName);
+	Resource() noexcept;
+
 public:
 	static Resource getResource(std::string const& fileName) {
-		Resource tmp(fileName);
+		Resource tmp;
+		try {
+			tmp.load(fileName);
+		}
+		catch (std::exception& msg) {
+			std::cout << msg.what() << std::endl;
+		}
+		
+
 		return tmp;
 	};
+	void print(void);
+	void load(std::string const& path);
+	void for_each(std::function<void(const Node&)>);
 };
 

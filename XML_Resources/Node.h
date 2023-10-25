@@ -11,8 +11,9 @@
 class Node {
     std::string tag;
     std::string value;
-    std::vector<std::unique_ptr<Node>> children;
+   
 public:
+    std::vector<std::unique_ptr<Node>> children;
     Node(const std::string& tag, const std::string& value) : tag(tag), value(value) {}
 
     void append(std::unique_ptr<Node> child) {

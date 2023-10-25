@@ -1,17 +1,12 @@
-#include "Tree.h"
+#include "Resource.h"
 
+
+/*
+The example of bad function for for_each:
+    auto ref = [](const Node& a) {const_cast<Node&>(a).children[0].reset(); };
+*/
 int main() {
-    Tree* doc = new Tree();
-    try {
-        doc->load("test.txt");
-    }
-    catch (std::exception& r) {
-        std::cout << "Start" << std::endl;
-        std::cout << r.what() << std::endl;
-        return 0;
-    }
-
-    doc->print();
-
+    Resource doc = Resource::getResource("test.txt");   
+    doc.print();
     return 0;
 };
