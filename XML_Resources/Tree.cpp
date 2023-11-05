@@ -2,20 +2,24 @@
 
 void Tree::parse(const std::string& xml) {
     int pos = 0;
-    root_node = parseNode(xml, pos);
+    root_node = parseNode(xml, pos, nullptr);
 };
 
-std::unique_ptr<Node> Tree::parseNode(const std::string& xml, int& pos) {
+Tree::Tree(Tree const& tree) {
+    root_node = tree.root_node->copy();
+}
+
+std::unique_ptr<Node> Tree::parseNode(const std::string& xml, int& pos, Node* parent) {
     std::string tag, value;
     getNextTag(xml, pos, tag);
     getNextValue(xml, pos, value);
-    std::unique_ptr<Node> node(new Node(tag, value));
+    std::unique_ptr<Node> node(new Node(tag, value, parent));
 
     std::string nextTag;
     getNextTag(xml, pos, nextTag);
     while (nextTag != ("/" + tag) && pos < xml.size()) {
         pos -= nextTag.size() + 2;
-        node->append(parseNode(xml, pos));
+        node->append(parseNode(xml, pos, node.get()));
         getNextTag(xml, pos, nextTag);
     }
     return node;
@@ -88,6 +92,7 @@ std::string Tree::readFile(const std::string& path) {
     throw std::exception("File not found");
 
 };
+
 void Tree::writeFile(const std::string& path, const std::string& content) {
     std::ofstream file(path);
 
@@ -97,6 +102,53 @@ void Tree::writeFile(const std::string& path, const std::string& content) {
 
     file << content;
 };
+
 std::string Tree::stringify() {
     return root_node->stringify();
 };
+
+Node::Iterator Tree::find_by_tag(std::string const& tag) {
+    auto it = begin();
+    auto end_ = end();
+    while (it != end_) {
+        if (it->getTag() == tag) {
+            return it;
+        }
+        it++;
+    }
+};
+
+Node::Iterator Tree::find_by_value(std::string const& value) {
+    auto it = begin();
+    auto end_ = end();
+    while (it != end_) {
+        if (it->getValue() == value) {
+            return it;
+        }
+        it++;
+    }
+};
+
+bool Tree::isIteratorValid(Node::Iterator const& it) {
+    auto begin_ = begin();
+    auto end_ = end();
+    if (it == end_) return false;
+    while (begin_ != end_) {
+        if (begin_ == it) return true;
+        begin_++;
+    }
+    return false;
+};
+
+bool Tree::add(std::string const& tag, std::string const& value, Node::Iterator const& it) {
+    if (!isIteratorValid(it)) return false;
+    (*it).append(std::make_unique<Node>(new Node(tag, value, &(*it))));
+    return true;
+};
+
+bool Tree::erase(Node::Iterator const& it) noexcept {
+    if (!isIteratorValid(it) || it == begin()) return false;
+    root_node->erase(it);
+    return true;
+
+}
