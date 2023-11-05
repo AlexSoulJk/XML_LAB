@@ -29,8 +29,8 @@ std::string Node::stringify(int depth) {
 
 std::unique_ptr<Node>Node::copy() noexcept {
     if (!this) return nullptr;
-    auto root = std::make_unique<Node>(tag, value, parent);
-    for (const auto& child : children) {
+    auto root = std::make_unique<Node>(Node(tag, value, parent));
+    for (auto& child : children) {
         root->append(child->copy());
     }
     return root;
@@ -80,10 +80,23 @@ Node* Node::next()
     return nullptr;
 }
 
-void Node::erase(Node::Iterator it) noexcept {
-    auto parent = *it->parent;
-    for (auto& child : it->children) {
-        parent.append(std::move(child));
+void Node::Iterator::deleteNode() {
+    
+    for (int i = 0; i < father->children.size(); i++)
+        if (father->children[i].get() == tmp)
+        {
+            father->children[i].reset();
+            father->children.erase(father->children.begin() + i);
+            break;
+        }
+}
+
+void Node::erase(Node::Iterator& it) noexcept {
+    auto& parent = *it->parent;
+    auto& tmp = *it;
+    
+    for (int i = 0; i < it->children.size(); i++) {
+        parent.append(std::move(tmp.children[i]));
     }
-    //auto node = *it;
+    it.deleteNode();
 }

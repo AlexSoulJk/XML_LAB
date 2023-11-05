@@ -14,11 +14,11 @@ int main() {
         doc->load("test.txt");
         auto doc1 = doc->clone();
         doc->print();
-        Node::Iterator it = doc->begin();
-        while (it != doc->end()) {
-            std::cout << it->getTag() << std::endl;
-            it++;
-        }
+        auto it = doc->find_by_tag("TAG150");
+        //doc->erase(it);
+        //doc->print();
+        doc->add("TAG170","370",it);
+        doc->print();
     }
     _CrtDumpMemoryLeaks();
     return 0;

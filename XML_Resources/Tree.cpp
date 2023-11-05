@@ -107,7 +107,7 @@ std::string Tree::stringify() {
     return root_node->stringify();
 };
 
-Node::Iterator Tree::find_by_tag(std::string const& tag) {
+Node::Iterator Tree::find_by_tag(std::string const& tag){
     auto it = begin();
     auto end_ = end();
     while (it != end_) {
@@ -116,6 +116,7 @@ Node::Iterator Tree::find_by_tag(std::string const& tag) {
         }
         it++;
     }
+    throw std::exception(("This tree has not got " + tag).c_str());
 };
 
 Node::Iterator Tree::find_by_value(std::string const& value) {
@@ -127,9 +128,10 @@ Node::Iterator Tree::find_by_value(std::string const& value) {
         }
         it++;
     }
+    throw std::exception(("This tree has not got " + value).c_str());
 };
 
-bool Tree::isIteratorValid(Node::Iterator const& it) {
+bool Tree::isIteratorValid(Node::Iterator const& it) noexcept{
     auto begin_ = begin();
     auto end_ = end();
     if (it == end_) return false;
@@ -140,13 +142,14 @@ bool Tree::isIteratorValid(Node::Iterator const& it) {
     return false;
 };
 
-bool Tree::add(std::string const& tag, std::string const& value, Node::Iterator const& it) {
+
+bool Tree::add(std::string const& tag, std::string const& value, Node::Iterator const& it) noexcept{
     if (!isIteratorValid(it)) return false;
-    (*it).append(std::make_unique<Node>(new Node(tag, value, &(*it))));
+    (*it).append(std::unique_ptr<Node>(new Node(tag, value, &(*it))));
     return true;
 };
 
-bool Tree::erase(Node::Iterator const& it) noexcept {
+bool Tree::erase(Node::Iterator& it) noexcept {
     if (!isIteratorValid(it) || it == begin()) return false;
     root_node->erase(it);
     return true;

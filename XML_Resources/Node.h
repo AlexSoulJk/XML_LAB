@@ -26,6 +26,7 @@ public:
         Iterator operator++ () { next(); return *this; };
         Iterator& operator++(int i) { Iterator tmp = *this; ++(*this); return tmp; };
         reference operator*() const { return *tmp; };
+        void deleteNode();
 
     private:
         pointer tmp;
@@ -51,12 +52,10 @@ public:
 
     Iterator begin() { return Iterator(this, nullptr); };
     Iterator end() { return Iterator(nullptr, nullptr); }
-    void erase(Iterator it) noexcept;
+    void erase(Iterator& it) noexcept;
 private:
     std::string tag;
     std::string value;
     Node* parent;
-    //~Node() = default;
-public: 
-    std::vector<std::unique_ptr<Node>> children;
+    std::vector<std::unique_ptr<Node>> children;    
 };

@@ -14,15 +14,14 @@ public:
 	void load(std::string const& path);
 	void for_each(std::function<void(const Node&)>);
 	void save(const std::string& path);
-	void parse(const std::string&);
 
 	Node::Iterator begin() { return XML_document->begin(); };
 	Node::Iterator end() { return XML_document->end(); };
-	Node::Iterator find_by_tag(std::string const& tag) noexcept;
-	Node::Iterator find_by_value(std::string const& value) noexcept;
+	Node::Iterator find_by_tag(std::string const& tag);
+	Node::Iterator find_by_value(std::string const& value);
 
-	bool add(std::string const& tag, std::string const& value, Node::Iterator const & it) noexcept;
-	bool erase(Node::Iterator const& it) noexcept;
+	bool add(std::string const& tag, std::string const& value, Node::Iterator& it) noexcept;
+	bool erase(Node::Iterator& it) noexcept;
 	~Resource() = default;
 };
 

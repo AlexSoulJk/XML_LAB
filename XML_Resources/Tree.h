@@ -16,11 +16,11 @@ public:
     Node::Iterator begin() { return root_node->begin(); };
     Node::Iterator end() { return root_node->end(); };
 
-    Node::Iterator find_by_tag(std::string const& tag) noexcept;
-    Node::Iterator find_by_value(std::string const& value) noexcept;
+    Node::Iterator find_by_tag(std::string const& tag);
+    Node::Iterator find_by_value(std::string const& value);
 
     bool add(std::string const& tag, std::string const& value, Node::Iterator const& it) noexcept;
-    bool erase(Node::Iterator const& it)noexcept;
+    bool erase(Node::Iterator& it)noexcept;
 private:
     std::unique_ptr<Node> root_node;
 
