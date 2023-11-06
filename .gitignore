@@ -34,3 +34,6 @@ x64
 *.exe
 *.out
 *.app
+
+XML_Resources/Loader.h
+XML_Resources/Loader.cpp
