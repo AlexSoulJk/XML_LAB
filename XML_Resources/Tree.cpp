@@ -75,7 +75,6 @@ void Tree::for_each(std::function<void(const Node&)> Functor) {
     root_node->for_each(Functor);
 };
 
-
 std::string Tree::readFile(const std::string& path) {
     std::ifstream file(path);
     std::string expression = "", cur = "";

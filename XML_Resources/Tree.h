@@ -3,10 +3,13 @@
 
 
 class Tree {
+private:
+    std::unique_ptr<Node> root_node;
 public:
     Tree() noexcept : root_node(nullptr) {};
     Tree(Tree const& tree);
     ~Tree() = default;
+
     void parse(const std::string& xml);
     void load(const std::string& path);
     void save(const std::string& path);
@@ -22,8 +25,6 @@ public:
     bool add(std::string const& tag, std::string const& value, Node::Iterator const& it) noexcept;
     bool erase(Node::Iterator& it)noexcept;
 private:
-    std::unique_ptr<Node> root_node;
-
     std::string readFile(const std::string& path);
     void writeFile(const std::string& path, const std::string& content);
     std::string stringify();

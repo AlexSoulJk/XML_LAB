@@ -46,36 +46,24 @@ void Node::for_each(std::function<void(const Node&)> functor) {
 }
 
 void Node::Iterator::next() {
-    Node* cur = tmp->next();
-    if (cur)
-    {
-        father = cur->parent;
-        tmp = cur;
-        return;
-    }
-    else {
-        while (father->parent != nullptr) {
-            int i = father->parent->numberInChildren(father);
-            if (i < father->parent->children.size() - 1) {
-                tmp = father->parent->children[i + 1].get();
-                father = tmp->parent;
-                return;
-            }
-            father = father->parent;
-        }
-        father = nullptr;
-        tmp = nullptr;
-        return;
-    }
+    tmp = tmp->next();
+    father = tmp ? tmp->parent : tmp;
 }
 
 Node* Node::next()
 {
     if (!children.empty()) return children[0].get();
-    else if(parent != nullptr) {
-        int i = parent->numberInChildren(this);
-        if (i < parent->children.size() - 1)
-            return parent->children[i + 1].get();
+    else if (parent != nullptr) {
+        auto father = parent;
+        auto curr = this;
+        while (father!= nullptr) {
+            int i = father->numberInChildren(curr);
+            if (i < father->children.size() - 1) {
+                return father->children[i + 1].get();
+            }
+            curr = father;
+            father = father->parent;
+        }
     }
     return nullptr;
 }

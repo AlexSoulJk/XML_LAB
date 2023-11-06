@@ -22,6 +22,7 @@ public:
 
 	bool add(std::string const& tag, std::string const& value, Node::Iterator& it) noexcept;
 	bool erase(Node::Iterator& it) noexcept;
+
 	~Resource() = default;
 };
 

@@ -12,13 +12,13 @@ int main() {
     {
         auto doc = Resource::create();
         doc->load("test.txt");
-        auto doc1 = doc->clone();
-        doc->print();
-        auto it = doc->find_by_tag("TAG150");
-        //doc->erase(it);
-        //doc->print();
-        doc->add("TAG170","370",it);
-        doc->print();
+        doc->save("output_test.txt");
+        auto it = doc->find_by_tag("TAG7");
+        doc->erase(it);
+        doc->save("output_test_withoutTAG7.txt");
+        auto it_begin = doc->begin();
+        doc->add("TAG99","99", it_begin);
+        doc->save("output_test_withTAG99.txt");
     }
     _CrtDumpMemoryLeaks();
     return 0;

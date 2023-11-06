@@ -9,7 +9,7 @@
 
 
 class Node {
-private:
+private: 
     Node* next();
 public:
 
@@ -27,12 +27,10 @@ public:
         Iterator& operator++(int i) { Iterator tmp = *this; ++(*this); return tmp; };
         reference operator*() const { return *tmp; };
         void deleteNode();
-
     private:
         pointer tmp;
         pointer father;
     };
-
 
     Node(const std::string& tag, const std::string& value, Node* parent) noexcept : tag(tag), value(value), parent(parent) {};
 
@@ -53,6 +51,7 @@ public:
     Iterator begin() { return Iterator(this, nullptr); };
     Iterator end() { return Iterator(nullptr, nullptr); }
     void erase(Iterator& it) noexcept;
+
 private:
     std::string tag;
     std::string value;
