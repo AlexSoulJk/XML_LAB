@@ -10,7 +10,7 @@
 *.lo
 *.o
 *.obj
-
+x64
 # Precompiled Headers
 *.gch
 *.pch
@@ -34,3 +34,6 @@
 *.exe
 *.out
 *.app
+
+XML_Resources/Loader.h
+XML_Resources/Loader.cpp
