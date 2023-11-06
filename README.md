@@ -9,7 +9,7 @@ Laboratory work on storing and implementing an XML document.
 5) Search by name tag or by value.
 
 ## Input format:
-Sample of tag with name_tag: <name_tag> value = some_value </name_tag>
+Sample of tag with name_tag: <name_tag> value = some_value </name_tag>.
 Sample of tag1, tag2: <name_tag1> value = some_value1
                       <name_tag2> value = some_value2 </name_tag2>
                       </name_tag1>
